@@ -1,0 +1,67 @@
+<div>
+  <form
+    #userAuth="ngForm"
+    class="row d-flex my-4 flex-column justify-content-center align-items-center"
+  >
+    <h1 class="display-1 text-center">Entrar</h1>
+    <mat-form-field appearance="fill" class="col-6">
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        placeholder="Insira seu email"
+        required
+        minlength="4"
+        color="primary"
+        name="email"
+        [(ngModel)]="user.email"
+        #email="ngModel"
+      />
+    </mat-form-field>
+    <div
+      class="alert alert-danger col-6 mx-3"
+      *ngIf="email.errors && (email.dirty || email.touched)"
+    >
+      <div [hidden]="!email.errors">Digite um email válido.</div>
+    </div>
+
+    <mat-form-field class="example-full-width" appearance="fill" class="col-6">
+      <mat-label>Senha</mat-label>
+      <input
+        matInput
+        placeholder="Insira sua senha"
+        required
+        minlength="4"
+        color="primary"
+        name="password"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div
+      class="alert alert-danger col-6 mx-3"
+      *ngIf="password.errors && (password.dirty || password.touched)"
+    >
+      <div [hidden]="!password.errors">Digite uma senha válida.</div>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="col-6 mx-3"
+      (click)="login()"
+      [disabled]="!userAuth.form.valid"
+    >
+      Login
+    </button>
+
+  </form>
+</div>
